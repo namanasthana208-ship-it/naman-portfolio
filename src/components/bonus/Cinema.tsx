@@ -48,10 +48,12 @@ function Poster({ src, title, sub, i, note, big }: { src: string; title: string;
 export function Cinema() {
   const [recent, setRecent] = useState<Watch[] | null>(null)
   useEffect(() => {
-    fetch('/api/letterboxd')
-      .then((r) => (r.ok ? r.json() : []))
-      .then((d: Watch[]) => setRecent(d.slice(0, 3)))
-      .catch(() => setRecent([]))
+    // live diary first; if that fails, the snapshot saved at the last build
+    const get = (url: string) => fetch(url).then((r) => (r.ok ? (r.json() as Promise<Watch[]>) : []))
+    get('/api/letterboxd')
+      .catch(() => [] as Watch[])
+      .then((d) => (d.length ? d : get('/letterboxd.json').catch(() => [] as Watch[])))
+      .then((d) => setRecent(d.slice(0, 3)))
   }, [])
 
   return (

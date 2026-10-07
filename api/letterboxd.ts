@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getLetterboxd } from './_letterboxd'
+import { getLetterboxd } from './_letterboxd.js'
 
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
   try {

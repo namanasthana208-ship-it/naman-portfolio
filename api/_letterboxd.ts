@@ -24,7 +24,13 @@ const decode = (s: string) =>
     .replace(/&#0?39;/g, "'")
 
 export async function getLetterboxd(limit = 6): Promise<Watch[]> {
-  const res = await fetch(FEED, { headers: { 'User-Agent': 'Mozilla/5.0 (portfolio)' } })
+  const res = await fetch(FEED, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+      Accept: 'application/rss+xml, application/xml;q=0.9, */*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
+    },
+  })
   if (!res.ok) throw new Error(`letterboxd ${res.status}`)
   const xml = await res.text()
   const items = xml.match(/<item>[\s\S]*?<\/item>/g) ?? []

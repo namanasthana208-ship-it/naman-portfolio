@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
-import { getLetterboxd } from './api/_letterboxd'
+import { getLetterboxd } from './api/_letterboxd.ts'
 
 // Serves /api/letterboxd locally the same way the Vercel function does in production.
 const letterboxdDev = (): Plugin => ({
