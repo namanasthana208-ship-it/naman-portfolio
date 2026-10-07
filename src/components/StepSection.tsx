@@ -118,6 +118,11 @@ export function StepSection({ step }: { step: Step }) {
             </div>
           ))}
           <PartsBox parts={step.parts} />
+        </div>
+
+        {/* the work */}
+        <div className="space-y-5 lg:pt-4">
+          {game && <PredictionGame sub={game} />}
           {cac && (
             <Reveal>
               <div className="rounded-2xl border-2 border-ink bg-manual p-5 shadow-[5px_5px_0_#1b1813]">
@@ -134,11 +139,6 @@ export function StepSection({ step }: { step: Step }) {
               </div>
             </Reveal>
           )}
-        </div>
-
-        {/* the work */}
-        <div className="space-y-5 lg:pt-4">
-          {game && <PredictionGame sub={game} />}
           {Visual && <Visual />}
           {step.stats && !game && <StatTiles stats={step.stats} />}
         </div>

@@ -155,7 +155,7 @@ export const STEPS: Step[] = [
         teaser: '$23.55 a signup. Way too high.',
         body: [
           {
-            text: 'Our cost per signup was $23.55. Way too high. I sat watching Clarity recordings of people signing up, and most of them were dropping off at the OTP screen. We fixed that with the tech team, then fixed deep linking, then had to fix the deep linking fix. It came down to $6.10.',
+            text: 'Our cost per signup was $23.55. Way too high. I sat watching Clarity recordings of people signing up, and most of them were dropping off at the OTP screen. We fixed that with the tech team, then fixed deep linking, then had to fix the fix. It came down to $6.10.',
           },
         ],
       },
