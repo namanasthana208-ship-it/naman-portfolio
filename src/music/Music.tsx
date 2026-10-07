@@ -6,7 +6,7 @@ export type Track = { id: string; title: string; artist: string; yt: string; art
 // Official uploads on each artist's YouTube channel.
 export const TRACKS: Track[] = [
   { id: 'touch', title: 'Touch', artist: 'Daft Punk', yt: '0Gkhol2Q1og', art: '/art/album-ram.jpg' },
-  { id: 'supernova', title: 'Champagne Supernova', artist: 'Oasis', yt: 'tI-5uv4wryI', art: '/art/album-morning-glory.jpg' },
+  { id: 'veridis', title: 'Veridis Quo', artist: 'Daft Punk', yt: 'TCd6PfxOy0Y', art: '/art/album-discovery.jpg' },
   { id: 'mets', title: 'Ode to the Mets', artist: 'The Strokes', yt: 'LNq4xox99HY', art: '/art/album-new-abnormal.png' },
 ]
 
