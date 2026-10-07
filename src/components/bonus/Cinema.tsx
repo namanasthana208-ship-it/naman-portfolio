@@ -73,8 +73,8 @@ export function Cinema() {
         ))}
       </div>
 
-      <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_1.35fr]">
-        <div>
+      <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
+        <div className="min-w-0">
           <p className="mb-4 font-mono text-[11px] font-bold tracking-[0.2em] text-gold/70 uppercase">Also on repeat</p>
           <div className="grid grid-cols-3 gap-4">
             {FILMS_MORE.map((f, i) => (
@@ -84,9 +84,9 @@ export function Cinema() {
           <p className="mt-4 text-sm text-paper/50">Picking a top 3 was not happening.</p>
         </div>
 
-        <div>
-          <div className="mb-4 flex items-center gap-2">
-            <motion.span className="h-2 w-2 rounded-full bg-[#ff5a3c]" animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 1.4, repeat: Infinity }} />
+        <div className="min-w-0">
+          <div className="mb-4 flex items-start gap-2">
+            <motion.span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#ff5a3c]" animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 1.4, repeat: Infinity }} />
             <p className="font-mono text-[11px] font-bold tracking-[0.2em] text-gold/70 uppercase">Last watched · live from Letterboxd</p>
           </div>
           <div className="space-y-3">
@@ -98,7 +98,7 @@ export function Cinema() {
                 href={w.link}
                 target="_blank"
                 rel="noreferrer"
-                className="flex gap-4 rounded-2xl bg-white/[0.04] p-3 ring-1 ring-white/10 transition-colors hover:bg-white/[0.07]"
+                className="flex min-w-0 gap-4 rounded-2xl bg-white/[0.04] p-3 ring-1 ring-white/10 transition-colors hover:bg-white/[0.07]"
                 initial={{ x: 30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 whileHover={{ x: 4 }}
@@ -106,13 +106,13 @@ export function Cinema() {
               >
                 {w.poster && <img src={w.poster} alt="" className="h-[78px] w-[52px] shrink-0 rounded-md object-cover shadow-lg" loading="lazy" />}
                 <div className="min-w-0 py-0.5">
-                  <p className="truncate font-semibold text-paper">
+                  <p className="leading-snug font-semibold text-paper">
                     {w.title} <span className="font-normal text-paper/40">{w.year}</span>
                   </p>
                   <p className="text-sm text-[#00e054]">
                     {stars(w.rating)} {w.liked && <span className="text-[#ff8000]">♥</span>} {w.rewatch && <span className="ml-1 text-xs text-paper/40">rewatch</span>}
                   </p>
-                  {w.review && <p className="hand truncate text-lg">“{w.review}”</p>}
+                  {w.review && <p className="hand text-lg leading-snug">“{w.review}”</p>}
                 </div>
               </motion.a>
             ))}

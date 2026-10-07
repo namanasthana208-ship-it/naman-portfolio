@@ -41,7 +41,7 @@ function Card({ n, title, children, className = '' }: { n: number; title: string
         <h3 className="font-display text-[1.7rem] leading-tight font-bold tracking-tight text-paper">{title}</h3>
         <span className="font-mono text-[11px] font-bold tracking-[0.22em] text-gold/70">{String(n).padStart(2, '0')}</span>
       </header>
-      <div className="relative flex flex-1 flex-col">{children}</div>
+      <div className="relative flex min-w-0 flex-1 flex-col">{children}</div>
     </motion.article>
   )
 }
