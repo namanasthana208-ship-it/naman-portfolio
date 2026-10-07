@@ -179,12 +179,12 @@ function Hero() {
   )
 }
 
-export function Cover() {
+export function Cover({ ready = true }: { ready?: boolean }) {
   const [run, setRun] = useState(0)
   return (
     <>
       <section id="top" className="relative flex min-h-[100svh] flex-col justify-center pt-28 pb-16">
-        <Hero key={run} />
+        {ready ? <Hero key={run} /> : <div className="h-[60vh]" />}
         <motion.button
           onClick={() => setRun((r) => r + 1)}
           className="absolute right-0 bottom-6 rounded-full border-2 border-ink/15 px-3.5 py-1.5 font-mono text-[11px] font-bold tracking-[0.16em] text-ink-2 uppercase hover:border-ink hover:text-ink"

@@ -8,8 +8,11 @@ import { Parts } from './components/Parts'
 import { SetComplete } from './components/SetComplete'
 import { StepSection } from './components/StepSection'
 import { STEPS } from './content'
+import { SoundGate, useMusic } from './music/Music'
 
 export default function App() {
+  // the soundtrack question comes first; the hero waits for an answer
+  const { chosen } = useMusic()
   // smooth scrolling, and anchor links that glide instead of jump
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -39,9 +42,10 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
+      <SoundGate />
       <Nav />
       <main className="relative mx-auto max-w-[1240px] px-5 sm:px-8 lg:px-12">
-        <Cover />
+        <Cover ready={chosen} />
         {STEPS.map((s) => (
           <StepSection key={s.n} step={s} />
         ))}
