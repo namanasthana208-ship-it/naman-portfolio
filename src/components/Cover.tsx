@@ -94,12 +94,18 @@ function RotatingLine({ start }: { start: number }) {
     return () => timers.forEach(clearTimeout)
   }, [start])
   return (
-    <span className="relative block h-[1.3em] overflow-hidden">
+    <span className="relative grid overflow-hidden">
+      {/* every line, invisible and stacked, so the box is as tall as the longest one once it wraps */}
+      {LINES.map((l) => (
+        <span key={l} className="invisible col-start-1 row-start-1" aria-hidden>
+          {l}
+        </span>
+      ))}
       <AnimatePresence mode="popLayout" initial={false}>
         {i >= 0 && (
           <motion.span
             key={i}
-            className={`absolute inset-x-0 block ${i === LINES.length - 1 ? 'text-ink' : 'text-ink-3'}`}
+            className={`absolute inset-x-0 top-0 block ${i === LINES.length - 1 ? 'text-ink' : 'text-ink-3'}`}
             initial={{ y: '100%', opacity: 0, filter: 'blur(4px)' }}
             animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
             exit={{ y: '-100%', opacity: 0, filter: 'blur(4px)' }}
@@ -113,10 +119,39 @@ function RotatingLine({ start }: { start: number }) {
   )
 }
 
+// The four numbers I'd want someone to remember, as studded bricks that drop in after the hop.
+const HIGHLIGHTS = [
+  { value: '$661K+', label: 'trading volume from the affiliate channel', bg: '#d7372a', fg: '#fff', top: '#f0584a', tilt: -2 },
+  { value: '74%', label: 'lower cost per signup on paid ads', bg: '#f5c21b', fg: '#1b1813', top: '#ffd84a', tilt: 1.5 },
+  { value: '20→35%', label: 'monthly activation rate', bg: '#2c7cc6', fg: '#fff', top: '#4e9be0', tilt: 1 },
+  { value: '100M+', label: 'accounts reached with content', bg: '#3fa04b', fg: '#fff', top: '#5fbf6a', tilt: -1.5 },
+]
+
+function HighlightTiles({ delay }: { delay: number }) {
+  return (
+    <div className="grid grid-cols-2 gap-4 lg:gap-5">
+      {HIGHLIGHTS.map((h, i) => (
+        <motion.div
+          key={h.value}
+          className="studs-top relative flex aspect-[5/4] flex-col justify-between rounded-xl border-2 border-ink p-4 shadow-[5px_5px_0_#1b1813] lg:p-5"
+          style={{ background: h.bg, color: h.fg, ['--stud' as string]: h.top }}
+          initial={{ y: -90, opacity: 0, rotate: h.tilt * 4 }}
+          animate={{ y: 0, opacity: 1, rotate: h.tilt }}
+          whileHover={{ y: -6, rotate: 0, transition: { type: 'spring', stiffness: 400, damping: 18 } }}
+          transition={{ type: 'spring', stiffness: 520, damping: 15, delay: delay + i * 0.12 }}
+        >
+          <span className="tabular font-display text-[clamp(1.7rem,3.2vw,2.6rem)] leading-none font-extrabold tracking-tight">{h.value}</span>
+          <span className="text-[13px] leading-snug font-medium opacity-90 lg:text-sm">{h.label}</span>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
 function Hero() {
   const lineStart = LANDED + 0.35
   return (
-    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)]">
+    <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
       <div>
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <Kicker>Lucknow · open to moving</Kicker>
@@ -139,20 +174,7 @@ function Hero() {
         <ContactButtons className="mt-8" delay={LANDED + 0.2} />
       </div>
 
-      <motion.div
-        className="relative mx-auto w-full max-w-[250px] lg:max-w-[340px]"
-        initial={{ opacity: 0, y: 40, rotate: 6 }}
-        animate={{ opacity: 1, y: 0, rotate: -2.5 }}
-        transition={{ type: 'spring', stiffness: 120, damping: 16, delay: LANDED + 0.1 }}
-      >
-        <div className="studs-top rounded-[22px] border-2 border-ink bg-white p-2.5 shadow-[8px_8px_0_#1b1813]" style={{ ['--stud' as string]: '#1b1813' }}>
-          <img src="/photos/headshot.jpg" alt="Naman Asthana" className="aspect-[4/5] w-full rounded-[14px] object-cover object-[50%_25%]" />
-          <div className="flex items-center justify-between px-1.5 pt-2.5 pb-0.5">
-            <span className="font-display font-bold">Naman Asthana</span>
-            <span className="font-mono text-[10px] font-bold tracking-[0.16em] text-ink-3 uppercase">Growth</span>
-          </div>
-        </div>
-      </motion.div>
+      <HighlightTiles delay={LANDED + 0.15} />
     </div>
   )
 }
